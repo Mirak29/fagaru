@@ -1,11 +1,19 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("@openzeppelin/hardhat-upgrades");
+require('dotenv').config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.27",
+  solidity: "0.8.17",
   networks: {
-    localhost: {
-      url: 'http://127.0.0.1:8545',
-    },
-  },
+    hardhat: {},
+    ganache: {
+      url: process.env.GANACHE_URL,
+      accounts: [
+        process.env.GANACHE_PRIVATE_KEY_1,
+        // process.env.GANACHE_PRIVATE_KEY_2,
+        // process.env.GANACHE_PRIVATE_KEY_3
+      ]
+    }
+  }
 };
