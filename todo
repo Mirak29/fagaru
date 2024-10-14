@@ -1,0 +1,92 @@
+# Architecture du Projet Fagaru
+
+## 1. Frontend
+- **Next.js** pour une interface utilisateur réactive
+- Pages principales :
+    - Page d'accueil
+    - Inscription des patients
+    - Consultation des dossiers médicaux
+    - Tableau de bord pour les professionnels de santé
+    - Page d'administration (gestion des utilisateurs et des données)
+- Intégration avec Web3.js ou ethers.js pour interagir avec la blockchain
+
+## 2. Backend
+- **Solidity** pour la création de contrats intelligents sur la blockchain Ethereum
+- API RESTful avec **Node.js** et **Express** pour la communication frontend-backend
+- Fonctionnalités :
+    - Création de dossiers médicaux
+    - Mise à jour et consultation des dossiers
+    - Authentification et autorisation des utilisateurs
+- Intégration avec un nœud Ethereum (Infura ou nœud local)
+
+## 3. Base de Données
+- **MongoDB** pour le stockage des métadonnées
+- **IPFS** pour le stockage décentralisé des fichiers médicaux
+
+## 4. Sécurité
+- Mesures de protection des données sensibles (chiffrement, authentification forte)
+- Utilisation de bibliothèques de sécurité comme OpenZeppelin pour les contrats intelligents
+
+## 5. Infrastructure
+- Hébergement cloud (AWS ou Azure) pour backend et frontend
+- **Docker** pour la conteneurisation des services
+
+# TODO List
+
+## Phase 1 : Planification et Définition (1 semaine)
+- [ ] Réunir l'équipe et définir les rôles précis
+- [ ] Organiser une séance de brainstorming pour affiner les fonctionnalités et priorités
+- [ ] Établir un calendrier de développement détaillé avec jalons
+- [ ] Créer un backlog de produit et définir les user stories
+- [ ] Mettre en place l'environnement de développement (outils, comptes de test)
+
+## Phase 2 : Conception de l'Architecture (1 semaine)
+- [ ] Concevoir l'architecture technique détaillée du projet
+- [ ] Créer des maquettes de l'interface utilisateur (Figma ou Adobe XD)
+- [ ] Définir les schémas de données pour MongoDB
+- [ ] Concevoir la structure des contrats intelligents et leurs interactions
+- [ ] Établir un plan de sécurité et de protection des données
+
+## Phase 3 : Développement (3 semaines)
+
+### Frontend :
+- [ ] Configurer le projet Next.js et la structure de base
+- [ ] Installer et configurer Web3.js ou ethers.js
+- [ ] Développer les composants réutilisables
+- [ ] Créer les pages principales
+- [ ] Implémenter l'authentification des utilisateurs (incluant MetaMask)
+- [ ] Développer les fonctionnalités d'interaction avec les contrats intelligents
+
+### Backend :
+- [ ] Configurer l'environnement de développement Solidity (Truffle ou Hardhat)
+- [ ] Créer les contrats intelligents pour la gestion des dossiers médicaux
+- [ ] Implémenter les fonctions de base (CRUD des dossiers)
+- [ ] Développer les mécanismes de contrôle d'accès et d'autorisation
+- [ ] Configurer l'API RESTful avec Node.js et Express
+- [ ] Mettre en place les routes pour la gestion des utilisateurs et métadonnées
+
+### Base de Données :
+- [ ] Configurer MongoDB et créer les modèles de données
+- [ ] Configurer IPFS pour le stockage des fichiers médicaux
+- [ ] Développer les fonctions d'interaction avec IPFS
+
+### Intégration :
+- [ ] Intégrer le frontend avec l'API backend
+- [ ] Connecter les contrats intelligents à l'interface utilisateur
+- [ ] Mettre en place la synchronisation blockchain / base de données off-chain
+
+## Phase 4 : Tests et Déploiement (1 semaine)
+- [ ] Écrire et exécuter des tests unitaires pour les contrats intelligents
+- [ ] Réaliser des tests d'intégration (frontend, backend, blockchain)
+- [ ] Effectuer des tests de sécurité
+- [ ] Déployer les contrats sur un réseau de test Ethereum (Rinkeby ou Goerli)
+- [ ] Configurer l'environnement de production sur la plateforme cloud choisie
+- [ ] Déployer l'application frontend et backend
+
+## Phase 5 : Finalisation et Présentation (1 semaine)
+- [ ] Préparer la documentation technique du projet
+- [ ] Créer un guide utilisateur pour l'application
+- [ ] Préparer une démonstration de l'application
+- [ ] Réaliser une présentation détaillée du projet
+- [ ] Organiser une session de retour d'expérience avec l'équipe
+- [ ] Documenter les leçons apprises et les meilleures pratiques
