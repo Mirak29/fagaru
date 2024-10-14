@@ -1,5 +1,10 @@
-pragma solidity >=0.4.22 <0.9.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+/**
+ * @title FAGARU
+ * @dev Contrat pour la gestion des dossiers médicaux des patients
+ */
 contract FAGARU {
     struct Record {
         string cid;
@@ -18,19 +23,16 @@ contract FAGARU {
         address id;
     }
 
-    mapping(address => Patient) public patients;
-    mapping(address => Doctor) public doctors;
+    mapping(address => Patient) private patients;
+    mapping(address => Doctor) private doctors;
 
-    event PatientAdded(address patientId);
-    event DoctorAdded(address doctorId);
-    event RecordAdded(string cid, address patientId, address doctorId);
-
-    // modifiers
+    event PatientAdded(address indexed patientId);
+    event DoctorAdded(address indexed doctorId);
+    event RecordAdded(string indexed cid, address indexed patientId, address indexed doctorId);
 
     modifier senderExists() {
         require(
-            doctors[msg.sender].id == msg.sender ||
-                patients[msg.sender].id == msg.sender,
+            doctors[msg.sender].id == msg.sender || patients[msg.sender].id == msg.sender,
             "Sender does not exist"
         );
         _;
@@ -46,58 +48,67 @@ contract FAGARU {
         _;
     }
 
-    // functions
-
-    function addPatient(address _patientId) public senderIsDoctor {
-        require(
-            patients[_patientId].id != _patientId,
-            "This patient already exists."
-        );
+    /**
+     * @dev Ajoute un nouveau patient
+     * @param _patientId L'adresse du patient à ajouter
+     */
+    function addPatient(address _patientId) external senderIsDoctor {
+        require(patients[_patientId].id != _patientId, "This patient already exists");
         patients[_patientId].id = _patientId;
-
         emit PatientAdded(_patientId);
     }
 
-    function addDoctor() public {
-        require(
-            doctors[msg.sender].id != msg.sender,
-            "This doctor already exists."
-        );
+    /**
+     * @dev Ajoute un nouveau docteur
+     */
+    function addDoctor() external {
+        require(doctors[msg.sender].id != msg.sender, "This doctor already exists");
         doctors[msg.sender].id = msg.sender;
-
         emit DoctorAdded(msg.sender);
     }
 
-    function addRecord(
-        string memory _cid,
-        string memory _fileName,
-        address _patientId
-    ) public senderIsDoctor patientExists(_patientId) {
-        Record memory record = Record(
-            _cid,
-            _fileName,
-            _patientId,
-            msg.sender,
-            block.timestamp
-        );
+    /**
+     * @dev Ajoute un nouveau dossier médical pour un patient
+     * @param _cid L'identifiant du contenu du dossier
+     * @param _fileName Le nom du fichier du dossier
+     * @param _patientId L'adresse du patient concerné
+     */
+    function addRecord(string memory _cid, string memory _fileName, address _patientId) 
+        external 
+        senderIsDoctor 
+        patientExists(_patientId) 
+    {
+        Record memory record = Record({
+            cid: _cid,
+            fileName: _fileName,
+            patientId: _patientId,
+            doctorId: msg.sender,
+            timeAdded: block.timestamp
+        });
         patients[_patientId].records.push(record);
-
         emit RecordAdded(_cid, _patientId, msg.sender);
     }
 
-    function getRecords(
-        address _patientId
-    )
-        public
-        view
-        senderExists
-        patientExists(_patientId)
-        returns (Record[] memory)
+    /**
+     * @dev Récupère les dossiers médicaux d'un patient
+     * @param _patientId L'adresse du patient
+     * @return Un tableau des dossiers médicaux du patient
+     */
+    function getRecords(address _patientId) 
+        external 
+        view 
+        senderExists 
+        patientExists(_patientId) 
+        returns (Record[] memory) 
     {
         return patients[_patientId].records;
     }
 
-    function getSenderRole() public view returns (string memory) {
+    /**
+     * @dev Récupère le rôle de l'expéditeur
+     * @return Le rôle de l'expéditeur ("doctor", "patient", ou "unknown")
+     */
+    function getSenderRole() external view returns (string memory) {
         if (doctors[msg.sender].id == msg.sender) {
             return "doctor";
         } else if (patients[msg.sender].id == msg.sender) {
@@ -107,9 +118,12 @@ contract FAGARU {
         }
     }
 
-    function getPatientExists(
-        address _patientId
-    ) public view senderIsDoctor returns (bool) {
+    /**
+     * @dev Vérifie si un patient existe
+     * @param _patientId L'adresse du patient à vérifier
+     * @return Booléen indiquant si le patient existe
+     */
+    function getPatientExists(address _patientId) external view senderIsDoctor returns (bool) {
         return patients[_patientId].id == _patientId;
     }
 }
