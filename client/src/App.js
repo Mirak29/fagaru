@@ -25,13 +25,14 @@ function App() {
     connectToMetaMask();
   }, []);
 
-  const handleSubmit = async (e) =>{
+  //uploading file
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const fileData = new FormData();
       fileData.append("file", file);
 
-      const responeData = await axios({
+      const responseData = await axios({
         method: "post",
         url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
         data: fileData,
@@ -41,10 +42,11 @@ function App() {
           "pinata_secret_api_key": process.env.REACT_APP_PINATA_SECRET_KEY,
         }
       })
-      console.log("https://olive-many-canidae-360.mypinata.cloud/ipfs/" + responeData.data.IpfsHash);
+      console.log("https://olive-many-canidae-360.mypinata.cloud/ipfs/" + responseData.data.IpfsHash);
+      setCid(responseData.data.IpfsHash);
     } catch (error) {
       console.log(error);
-      
+
     }
   }
 
@@ -52,13 +54,6 @@ function App() {
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
-
-  // // Gérer l'upload
-  // const handleUpload = async () => {
-  //   if (file) {
-  //     await handleSubmit(file);
-  //   }
-  // };
 
   return (
     <div>
@@ -78,4 +73,3 @@ function App() {
 }
 
 export default App;
-console.log(process.env.REACT_APP_PINATA_API_KEY);
