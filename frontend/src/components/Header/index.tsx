@@ -5,9 +5,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
-import { useAuth } from "@/app/context/authContext";
+// import { useAuth } from "@/context/AuthContext";
+import { useApp } from "../auth/MetaMaskAuth";
 
 const Header = () => {
+  const { isConnected, address, error, connectToMetaMask, signMessage } = useApp();
+
   // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarToggleHandler = () => {
@@ -38,7 +41,6 @@ const Header = () => {
   };
 
   const usePathName = usePathname();
-  const { user, logout } = useAuth();
 
   return (
     <>
@@ -143,15 +145,7 @@ const Header = () => {
                                 openIndex === index ? "block" : "hidden"
                               }`}
                             >
-                              {menuItem.submenu.map((submenuItem, index) => (
-                                <Link
-                                  href={submenuItem.path}
-                                  key={index}
-                                  className="block rounded py-2.5 text-sm text-dark hover:text-primary dark:text-white/70 dark:hover:text-white lg:px-3"
-                                >
-                                  {submenuItem.title}
-                                </Link>
-                              ))}
+                            
                             </div>
                           </>
                         )}
@@ -160,24 +154,23 @@ const Header = () => {
                   </ul>
                 </nav>
               </div>
-              {
-                (!user ? 
-                <div className="flex items-center justify-end pr-16 lg:pr-0">
-                  <Link
-                    href="/signin"
-                    className="hidden px-7 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
-                  >
-                    Sign In
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-primary px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
-                  >
-                    Sign Up
-                  </Link>
-                </div>
-                : "")
-              }      
+                {
+                  !isConnected ? (
+                  <div className="flex items-center justify-end pr-16 lg:pr-0">
+                    <Link
+                      href="/signin"
+                      className="hidden px-7 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/signup"
+                      className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-primary px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
+                    >
+                      Sign Up
+                    </Link>
+                  </div>) : ("")
+                  }     
               <div>
                 <ThemeToggler />
               </div>

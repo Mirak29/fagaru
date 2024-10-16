@@ -1,3 +1,4 @@
+"use client"
 import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Blog from "@/components/Blog";
@@ -9,19 +10,16 @@ import Hero from "@/components/Hero";
 import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import Video from "@/components/Video";
-import { Metadata } from "next";
-import { AuthProvider } from "./context/authContext"
-
-
-export const metadata: Metadata = {
-  title: "Free Next.js Template for Startup and SaaS",
-  description: "This is Home for Startup Nextjs Template",
-  // other metadata
-};
+// import { useAuth } from "../context/AuthContext"
+import { useApp } from "@/components/auth/MetaMaskAuth";
 
 export default function Home() {
+  const { isConnected, address, error, connectToMetaMask, signMessage } = useApp();
+
+
   return (
     <>
+    
       <ScrollUp />
       <Hero />
       <Features />
