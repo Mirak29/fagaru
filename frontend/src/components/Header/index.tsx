@@ -54,24 +54,23 @@ const Header = () => {
             <div className="w-60 max-w-full px-4 xl:mr-12">
               <Link
                 href="/"
-                className={`header-logo block w-full ${
+                className={`header-logo font-bold text-3xl block w-full ${
                   sticky ? "py-5 lg:py-2" : "py-8"
                 } `}
               >
-                <Image
-                  src="/images/logo/logo-2.svg"
-                  alt="logo"
-                  width={140}
-                  height={30}
+                <h1
+                  
                   className="w-full dark:hidden"
-                />
-                <Image
-                  src="/images/logo/logo.svg"
-                  alt="logo"
-                  width={140}
-                  height={30}
+                >
+                  Fagaru
+                  </h1>
+                
+                <h1
+                  
                   className="hidden w-full dark:block"
-                />
+                >
+                  Fagaru
+                </h1>
               </Link>
             </div>
             <div className="flex w-full items-center justify-between px-4">
@@ -82,7 +81,7 @@ const Header = () => {
                   aria-label="Mobile Menu"
                   className="absolute right-4 top-1/2 block translate-y-[-50%] rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
                 >
-                  <span
+                    <span
                     className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
                       navbarOpen ? " top-[7px] rotate-45" : " "
                     }`}
@@ -171,7 +170,7 @@ const Header = () => {
                   </Link>
                   <Link
                     href="/signup"
-                    className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-primary px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
+                    className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-md bg-primary px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
                   >
                     Sign Up
                   </Link>

@@ -14,7 +14,7 @@ import { AuthProvider } from "./context/authContext"
 
 
 export const metadata: Metadata = {
-  title: "Free Next.js Template for Startup and SaaS",
+  title: "Fugaru",
   description: "This is Home for Startup Nextjs Template",
   // other metadata
 };
@@ -25,7 +25,7 @@ export default function Home() {
       <ScrollUp />
       <Hero />
       <Features />
-      <Video />
+      {/* <Video /> */}
       <Brands />
       <AboutSectionOne />
       <AboutSectionTwo />
