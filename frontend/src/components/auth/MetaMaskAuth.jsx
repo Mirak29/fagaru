@@ -1,6 +1,5 @@
 "use client"
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { ethers } from 'ethers';
 
 const AppContext = createContext();
 
@@ -10,7 +9,6 @@ export function AppProvider({ children }) {
   const [error, setError] = useState(null);
   const [account, setAccount] = useState('');
 
-
   useEffect(() => {
     const connectToMetaMask = async () => {
       if (window.ethereum) {
@@ -18,6 +16,7 @@ export function AppProvider({ children }) {
           const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
           setAccount(accounts[0]);
           setIsConnected(true)
+          console.log("---", accounts)
         } catch (error) {
           console.error("User denied account access");
         }
@@ -26,39 +25,7 @@ export function AppProvider({ children }) {
       }
     }
     connectToMetaMask()
-  }, []);
-
-  async function checkConnection() {
-    if (typeof window !== 'undefined' && typeof window.ethereum !== 'undefined') {
-      try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const accounts = await provider.listAccounts();
-        if (accounts.length > 0) {
-          setIsConnected(true);
-          setSigner(provider.getSigner());
-        }
-      } catch (err) {
-        console.error("Erreur lors de la vérification de la connexion:", err);
-        setError("Erreur de connexion à MetaMask");
-      }
-    }
-  }
-
-  // async function connectToMetaMask() {
-  //   if (typeof window !== 'undefined' && typeof window.ethereum !== 'undefined') {
-  //     try {
-  //       await window.ethereum.request({ method: 'eth_requestAccounts' });
-  //       const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //       setSigner(provider.getSigner());
-  //       setIsConnected(true);
-  //     } catch (err) {
-  //       console.error("Erreur lors de la connexion à MetaMask:", err.message || err);
-  //       setError("Impossible de se connecter à MetaMask");
-  //     }
-  //   } else {
-  //     setError("MetaMask n'est pas installé");
-  //   }
-  // }
+  }, [isConnected]);
   
 
   async function signMessage() {
@@ -93,6 +60,8 @@ export function AppProvider({ children }) {
     </AppContext.Provider>
   );
 }
+
+
 
 export function useApp() {
   const context = useContext(AppContext);

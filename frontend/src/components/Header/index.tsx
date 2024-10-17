@@ -7,6 +7,7 @@ import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
 // import { useAuth } from "@/context/AuthContext";
 import { useApp } from "../auth/MetaMaskAuth";
+import  FileUpload  from "../handlefile/handlefile"
 
 const Header = () => {
   const { isConnected, address, error, connectToMetaMask, signMessage } = useApp();
@@ -168,7 +169,7 @@ const Header = () => {
                     >
                       Sign Up
                     </Link>
-                  </div>) : ("")
+                  </div>) : (<FileUpload/>)
                   }     
               <div>
                 <ThemeToggler />
