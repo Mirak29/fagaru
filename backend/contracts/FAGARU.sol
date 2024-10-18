@@ -49,6 +49,21 @@ contract FAGARU {
     }
 
     /**
+     * @dev Récupère le rôle d'un utilisateur spécifique
+     * @param _userAddress L'adresse de l'utilisateur dont on veut connaître le rôle
+     * @return Le rôle de l'utilisateur ("doctor", "patient", ou "unknown")
+     */
+    function getRole(address _userAddress) external view returns (string memory) {
+        if (doctors[_userAddress].id == _userAddress) {
+            return "doctor";
+        } else if (patients[_userAddress].id == _userAddress) {
+            return "patient";
+        } else {
+            return "unknown";
+        }
+    }
+
+    /**
      * @dev Ajoute un nouveau patient
      * @param _patientId L'adresse du patient à ajouter
      */
