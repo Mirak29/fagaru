@@ -10873,12 +10873,12 @@
     "1337": {
       "events": {},
       "links": {},
-      "address": "0xB5cf4989e6f137Bde7ef1242aCaEf02a523dbDbe",
-      "transactionHash": "0xae4e4e5093e36f2228212f879e564bd4b0ccb0ed13b36dba2e80c0670c6249d8"
+      "address": "0x078624FA64eB2C4dB5650c29e3C929BB9309fCAB",
+      "transactionHash": "0xdfc1f4ef7092ad417d5d07065ae4484a7d4eceba205b28da6d45d9bc68598c4c"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-10-17T14:40:34.420Z",
+  "updatedAt": "2024-10-18T01:02:26.285Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "Contrat pour la gestion des dossiers médicaux des patients",
