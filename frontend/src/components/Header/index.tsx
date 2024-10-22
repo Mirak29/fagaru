@@ -11,7 +11,6 @@ import  FileUpload  from "../handlefile/handlefile"
 
 const Header = () => {
   const { isConnected, address, error, connectToMetaMask, signMessage } = useApp();
-
   // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarToggleHandler = () => {
@@ -29,6 +28,7 @@ const Header = () => {
   };
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
+    console.log("")
   });
 
   // submenu handler

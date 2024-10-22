@@ -97,7 +97,7 @@ contract FAGARU {
     function getRecords(address _patientId) 
         external 
         view 
-        senderExists 
+        senderExists
         patientExists(_patientId) 
         returns (Record[] memory) 
     {

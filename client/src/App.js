@@ -65,8 +65,8 @@ function App() {
           data: fileData,
           headers: {
             "Content-Type": "multipart/form-data",
-            "pinata_api_key": process.env.REACT_APP_PINATA_API_KEY,
-            "pinata_secret_api_key": process.env.REACT_APP_PINATA_SECRET_KEY,
+            "pinata_api_key": "63855d7460dfb8d2f23e",
+            "pinata_secret_api_key": "3df9c4e0db9ca268243185481b6fa7d0befb50ce6e9548489944346a316a57fd",
           },
         });
 
