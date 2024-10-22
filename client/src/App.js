@@ -5,11 +5,10 @@ import fagaruContract from "./contracts/FAGARU.json";
 
 function App() {
   const [account, setAccount] = useState('');
-  const [files, setFiles] = useState([]); // Prise en charge de plusieurs fichiers
-  const [cidList, setCidList] = useState([]);
+  const [file, setFile] = useState(null);
+  const [cid, setCid] = useState('');
   const [web3, setWeb3] = useState(null);
   const [contract, setContract] = useState(null);
-  const [loading, setLoading] = useState(false);
   
   const contractABI = fagaruContract.abi;
   const contractAddress = "0xB5cf4989e6f137Bde7ef1242aCaEf02a523dbDbe";
@@ -31,13 +30,22 @@ function App() {
         console.error("MetaMask not detected");
       }
     };
-  
-    initWeb3();
-  }, [contractABI, contractAddress]);  // Ajout des dépendances nécessaires
-  
 
-  const handleFileChange = (e) => {
-    setFiles([...e.target.files]); // Stocker plusieurs fichiers
+    initWeb3();
+  }, [contractABI, contractAddress]);
+
+  const deleteFileFromPinata = async (cid) => {
+    try {
+      await axios.delete(`https://api.pinata.cloud/pinning/unpin/${cid}`, {
+        headers: {
+          "pinata_api_key": process.env.REACT_APP_PINATA_API_KEY,
+          "pinata_secret_api_key": process.env.REACT_APP_PINATA_SECRET_KEY,
+        },
+      });
+      console.log(`File with CID ${cid} deleted from Pinata.`);
+    } catch (error) {
+      console.error('Error deleting file from Pinata:', error);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -46,52 +54,60 @@ function App() {
       console.error("Web3, contract, or account not initialized");
       return;
     }
-    if (files.length === 0) {
-      alert('Veuillez sélectionner au moins un fichier.');
-      return;
-    }
-
-    setLoading(true); // Début du chargement
 
     try {
-      const cids = [];
-      for (const file of files) {
-        const fileData = new FormData();
-        fileData.append("file", file);
+      const fileData = new FormData();
+      fileData.append("file", file);
 
-        const responseData = await axios({
-          method: "post",
-          url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-          data: fileData,
+      const responseData = await axios.post(
+        "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        fileData,
+        {
           headers: {
             "Content-Type": "multipart/form-data",
             "pinata_api_key": "63855d7460dfb8d2f23e",
             "pinata_secret_api_key": "3df9c4e0db9ca268243185481b6fa7d0befb50ce6e9548489944346a316a57fd",
           },
+        }
+      );
+
+      const cid = responseData.data.IpfsHash;
+      setCid(cid);
+
+      console.log(`Connected account: ${account}`);
+      console.log(`CID to be added: ${cid}`);
+
+      const gasEstimate = await contract.methods.addRecord(cid, file.name, account).estimateGas({ from: account });
+      const gasLimit = Math.floor(Number(gasEstimate) * 1.2);
+
+      const result = await contract.methods.addRecord(cid, file.name, account)
+        .send({ from: account, gas: gasLimit })
+        .on('transactionHash', (hash) => {
+          console.log('Transaction hash:', hash);
+        })
+        .on('confirmation', (confirmationNumber, receipt) => {
+          console.log('Transaction confirmed:', receipt);
+        })
+        .on('error', async (error) => {
+          console.error('Transaction error:', error);
+          console.log('Deleting uploaded file from Pinata...');
+          await deleteFileFromPinata(cid);  // Supprimer le fichier si la transaction échoue
         });
 
-        const cid = responseData.data.IpfsHash;
-        cids.push(cid);
-        console.log(`CID pour ${file.name}: ${cid}`);
+      console.log("Transaction result:", result);
+      console.log("CID enregistré sur la blockchain:", cid);
 
-        const gasEstimate = await contract.methods
-          .addRecord(cid, file.name, account)
-          .estimateGas({ from: account });
-        const gasLimit = Math.floor(Number(gasEstimate) * 1.2);
-
-        const result = await contract.methods
-          .addRecord(cid, file.name, account)
-          .send({ from: account, gas: gasLimit });
-
-        console.log(`Transaction pour ${file.name} réussie:`, result);
-      }
-      setCidList(cids); // Enregistrer les CIDs
     } catch (error) {
-      console.error('Erreur lors de la transaction :', error);
-      alert(`Une erreur est survenue : ${error.message || 'Erreur inconnue'}`);
-    } finally {
-      setLoading(false); // Fin du chargement
+      console.error('Error:', error);
+      if (cid) {
+        console.log('Deleting uploaded file from Pinata due to an error...');
+        await deleteFileFromPinata(cid);  // Supprimer le fichier en cas d'erreur
+      }
     }
+  };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
 
   return (
@@ -100,24 +116,9 @@ function App() {
       {account ? (
         <>
           <p>Connected account: {account}</p>
-          <input type="file" onChange={handleFileChange} multiple />
-          {loading ? (
-            <p>Envoi en cours...</p>
-          ) : (
-            <button onClick={handleSubmit}>Upload to Pinata and Save CID</button>
-          )}
-          {cidList.length > 0 && (
-            <div>
-              <h2>Fichiers enregistrés :</h2>
-              <ul>
-                {cidList.map((cid, index) => (
-                  <li key={index}>
-                    CID: {cid}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <input type="file" onChange={handleFileChange} />
+          <button onClick={handleSubmit}>Upload to Pinata and Save CID</button>
+          {cid && <p>File uploaded successfully. CID: {cid}</p>}
         </>
       ) : (
         <p>Please connect to MetaMask</p>
