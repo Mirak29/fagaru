@@ -1,11 +1,9 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
-// import { useAuth } from "@/context/AuthContext";
 import { useApp } from "../auth/MetaMaskAuth";
 import  FileUpload  from "../handlefile/handlefile"
 

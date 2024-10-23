@@ -1,6 +1,6 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Contact from "@/components/Contact";
-
+import PopularProducts from "@/components/Contact/ppp";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,14 +11,7 @@ export const metadata: Metadata = {
 
 const ContactPage = () => {
   return (
-    <>
-      <Breadcrumb
-        pageName="Contact Page"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
-      />
-
-      <Contact />
-    </>
+    <PopularProducts />
   );
 };
 

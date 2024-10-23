@@ -17,12 +17,11 @@ function App() {
 
   
   const contractABI = fagaruContract.abi;
-  const contractAddress = "0x762EE39CF5f5f4854874a875c00828Ec174a2A52";
-
+  const contractAddress = "0xf8455E5f7e656EFA35C0E64A357831D6F826b522";
 
     // Exemple d'ajout d'un docteur
     const addDoctor = async () => {
-      if (!isInitialized || !contract || !account || !isdoctor) {
+      if (!isInitialized || !contract || !account ) {
         console.log("En attente de l'initialisation...");
         return;
       }
@@ -38,7 +37,7 @@ function App() {
     };
 
     const addPatient = async (patientAddress) => {    
-      if (!isInitialized || !contract || !account || !ispatient) {
+      if (!isInitialized || !contract || !account ) {
         console.log("En attente de l'initialisation...");
         return;
       }
@@ -179,9 +178,6 @@ function App() {
     };
   }, [contractABI, isInitialized]); // Ajout des dépendances nécessaires
 
-  
-  
-   
   const handleFileChange = (e) => {
     setFiles([...e.target.files]); // Stocker plusieurs fichiers
   };
@@ -245,18 +241,18 @@ function App() {
     <div>
       {account ? (
         <>
-          <input type="file" onChange={handleFileChange} multiple />
+          <input type="file" className='file-input file-input-bordered w-full max-w-xs' onChange={handleFileChange} multiple />
           {loading ? (
             <p>Envoi en cours...</p>
           ) : (
-            <button onClick={handleSubmit}>Upload to Pinata and Save CID</button>
+            <button className='btn btn-xs ml-4' onClick={handleSubmit}>Upload</button>
           )}
         </>
       ) : (
         <p>Please connect to MetaMask</p>
       )}
 
-    <div>
+    {/* <div>
       <h1>Mes fichiers</h1>
       <ul>
         {files.map((file, index) => (
@@ -267,7 +263,7 @@ function App() {
           </li>
         ))}
       </ul>
-    </div>
+    </div> */}
     </div>
   );
 }

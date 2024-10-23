@@ -8,6 +8,8 @@ export function AppProvider({ children }) {
   const [signer, setSigner] = useState(null);
   const [error, setError] = useState(null);
   const [account, setAccount] = useState('');
+  const [role, setRole] = useState('');
+
 
   useEffect(() => {
     const connectToMetaMask = async () => {
@@ -53,9 +55,18 @@ export function AppProvider({ children }) {
       setError("Erreur lors de la signature du message");
     }
   }
+  const checkRole = async (acc) => {
+    if (!isInitialized || !contract || !acc) {
+      console.log("En attente de l'initialisation...");
+      return;
+    }
+    const role = await contract?.methods.getSenderRole().call({ from: acc });
+    setRole(role)
+    console.log("Rôle de l'expéditeur :", role);
+  };
 
   return (
-    <AppContext.Provider value={{ isConnected, signer, error, account, signMessage }}>
+    <AppContext.Provider value={{ isConnected, signer, error, account, signMessage, role }}>
       {children}
     </AppContext.Provider>
   );
