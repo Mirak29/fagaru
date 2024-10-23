@@ -27,18 +27,18 @@ const PatientsFiles = () => {
           const accounts = await window.ethereum.request({
             method: 'eth_requestAccounts'
           });
-  
+
           if (accounts.length > 0) {
             const userAccount = accounts[0];
             const contractInstance = new web3Instance.eth.Contract(
               contractABI,
               contractAddress
             );
-  
+
             setWeb3(web3Instance);
             setContract(contractInstance);
             setAccountid(userAccount);
-  
+
             // Listen for account changes
             window.ethereum.on('accountsChanged', (newAccounts) => {
               if (newAccounts.length > 0) {
@@ -55,9 +55,9 @@ const PatientsFiles = () => {
         console.error("Erreur d'initialisation:", err);
       }
     };
-  
+
     initWeb3();
-  
+
     // Cleanup function to remove event listener
     return () => {
       if (window.ethereum && window.ethereum.removeListener) {
@@ -67,7 +67,7 @@ const PatientsFiles = () => {
       }
     };
   }, [contractABI]);  // Dependency array includes contractABI
-  
+
 
   const getRecordsWithRetry = async (account) => {
     if (!account) {
@@ -118,6 +118,7 @@ const PatientsFiles = () => {
 
     } catch (err) {
       console.error("Erreur détaillée:", err);
+      setFiles('')
     }
   };
 
@@ -159,21 +160,35 @@ const PatientsFiles = () => {
             </div>
             <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
               {
-                (files.length != 0 ? 
-                <h1 className="mb-4 text-2xl font-bold leading-tight text-black dark:text-white">Fichiers</h1>
-                : "")
+                (files?.length != 0 ?
+                  <h1 className="mb-4 text-2xl font-bold leading-tight text-black dark:text-white">Files</h1>
+                  : "")
               }
-              <ul>
-                {files.map((file, index) => (
-                  <li key={index}>
-                    <a href={`https://gateway.pinata.cloud/ipfs/${file.cid}`} download>
-                      {file.fileName}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <div className="overflow-x-auto">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {files?.length != 0 ? (files?.map((file, index) => (
+                      <tr key={index}>
+                        <th>{index}</th>
+                        <td>
+                          <a href={`https://gateway.pinata.cloud/ipfs/${file.cid}`} download>
+                            {file.fileName}
+                          </a>
+                        </td>
+                      </tr>
+                    ))) : "No file"}
+                  </tbody>
+                </table>
+              </div>
+             
             </div>
-            
+
           </div>
         </div>
       </section>

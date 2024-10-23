@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Web3 from 'web3';
 import axios from 'axios';
 import fagaruContract from "../../contracts/FAGARU.json";
@@ -14,6 +14,7 @@ function App() {
   const [error, setError] = useState('');
   const [ispatient, setIspatient] = useState(false);
   const [isdoctor, setIsdoctor] = useState(false);
+  const fileInputRef = useRef(null); // Create a ref for the file input
 
   
   const contractABI = fagaruContract.abi;
@@ -229,6 +230,11 @@ function App() {
         console.log(`Transaction pour ${file.name} réussie:`, result);
       }
       setCidList(cids); // Enregistrer les CIDs
+       // Clear the file input after upload
+       if (fileInputRef.current) {
+        fileInputRef.current.value = ''; // Clear the input value
+      }
+      setFiles['']
     } catch (error) {
       console.error('Erreur lors de la transaction :', error);
       alert(`Une erreur est survenue : ${error.message || 'Erreur inconnue'}`);
@@ -241,7 +247,11 @@ function App() {
     <div>
       {account ? (
         <>
-          <input type="file" className='file-input file-input-bordered w-full max-w-xs' onChange={handleFileChange} multiple />
+          <input type="file" 
+          className='file-input file-input-bordered w-full max-w-xs' 
+          onChange={handleFileChange} multiple 
+          ref={fileInputRef}
+          />
           {loading ? (
             <p>Envoi en cours...</p>
           ) : (
@@ -251,19 +261,6 @@ function App() {
       ) : (
         <p>Please connect to MetaMask</p>
       )}
-
-    {/* <div>
-      <h1>Mes fichiers</h1>
-      <ul>
-        {files.map((file, index) => (
-          <li key={index}>
-            <a href={`https://gateway.pinata.cloud/ipfs/${file.cid}`} download>
-              {file.fileName}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div> */}
     </div>
   );
 }
