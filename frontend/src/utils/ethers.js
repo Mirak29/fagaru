@@ -5,7 +5,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 
 // Adresse du contrat déployé
-const contractAddress = "0xYourContractAddress";
+const contractAddress = process.env.CONTRACT_ADRESS;
 const contract = new ethers.Contract(contractAddress, RoleManager.abi, signer);
 
 // Fonction pour vérifier si l'utilisateur est un admin

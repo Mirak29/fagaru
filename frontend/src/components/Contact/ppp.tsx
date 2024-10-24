@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import PatientsFiles from "./PopularProducts";
+import PatientsFiles from "./PatientsFiles";
 
 const PopularProducts = () => {
   return (

@@ -14,12 +14,11 @@ import Video from "@/components/Video";
 import { useApp } from "@/components/auth/MetaMaskAuth";
 
 export default function Home() {
-  const { isConnected, address, error, connectToMetaMask, signMessage } = useApp();
+  const { isConnected, address, error, connectToMetaMask, signMessage, role } = useApp();
 
 
   return (
     <>
-    
       <ScrollUp />
       <Hero />
       <Features />

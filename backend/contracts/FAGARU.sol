@@ -75,8 +75,8 @@ contract FAGARU {
      */
     function addRecord(string memory _cid, string memory _fileName, address _patientId) 
         external 
-        senderIsDoctor 
-        patientExists(_patientId) 
+        senderIsDoctor
+        patientExists(_patientId)
     {
         Record memory record = Record({
             cid: _cid,
@@ -99,7 +99,7 @@ contract FAGARU {
         view 
         senderExists
         patientExists(_patientId) 
-        returns (Record[] memory) 
+        returns (Record[] memory)
     {
         return patients[_patientId].records;
     }

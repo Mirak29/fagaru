@@ -62,8 +62,7 @@ export function AppProvider({ children }) {
     }
     const role = await contract?.methods.getSenderRole().call({ from: acc });
     setRole(role)
-    console.log("Rôle de l'expéditeur :", role);
-  };
+    };
 
   return (
     <AppContext.Provider value={{ isConnected, signer, error, account, signMessage, role }}>

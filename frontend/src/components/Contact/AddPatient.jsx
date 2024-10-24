@@ -1,39 +1,78 @@
 "use client";
 
 import { useTheme } from "next-themes";
+import { useState, useRef, useEffect } from "react";
 
-const NewsLatterBox = () => {
+
+const AddPatient = ({contract, account, role}) => {
+  
   const { theme } = useTheme();
+  const [patientid, setPatientid] = useState("")
+  const idRef = useRef(null); // Create a ref for the file input
+  const [error, setError] = useState('');
+
+
+  const handleOnchange = (e) => {
+    console.log(e.target.value);
+    setPatientid(e.target.value);
+  }
+
+  useEffect(() => {
+
+  }, [error, patientid])
+
+  const addPatient = async () => {    
+    try {
+      const gasEstimate = await contract?.methods.addPatient(patientid).estimateGas({ from: account });
+      const gasLimit = Math.floor(Number(gasEstimate) * 1.2);
+  
+      await contract?.methods.addPatient(patientid).send({ from: account, gas: gasLimit });
+      console.log("Patient ajouté avec succès");
+      if (idRef.current) {
+        idRef.current.value = ''; // Clear the input value
+      }
+      setError("")
+    } catch (e) {
+      console.log("------", patientid);
+      console.log(e);
+      
+      setError("Key invalid or exists");
+      console.dir('Erreur lors de l\'ajout du patient :', e);
+    }
+  };
 
   return (
     <div className="relative z-10 rounded-sm bg-white p-8 shadow-three dark:bg-gray-dark sm:p-11 lg:p-8 xl:p-11">
       <h3 className="mb-4 text-2xl font-bold leading-tight text-black dark:text-white">
-        Subscribe to receive future updates
+        Add New Patient
       </h3>
       <p className="mb-11 border-b border-body-color border-opacity-25 pb-11 text-base leading-relaxed text-body-color dark:border-white dark:border-opacity-25">
-        Lorem ipsum dolor sited Sed ullam corper consectur adipiscing Mae ornare
-        massa quis lectus.
+        Only doctors can add new patient.
       </p>
       <div>
         <input
           type="text"
           name="name"
-          placeholder="Enter your name"
+          onChange={handleOnchange}
+          ref={idRef}
+          placeholder="Enter patient key"
           className="border-stroke mb-4 w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
         />
-        <input
+        
+        {/* <input
           type="email"
           name="email"
           placeholder="Enter your email"
           className="border-stroke mb-4 w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-        />
+        /> */}
         <input
           type="submit"
-          value="Subscribe"
+          onClick={addPatient}
+          value="Add"
           className="mb-5 flex w-full cursor-pointer items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark"
         />
-        <p className="text-center text-base leading-relaxed text-body-color dark:text-body-color-dark">
-          No spam guaranteed, So please don’t send any spam mail.
+        <p className="text-center text-red-500">
+          {error}
         </p>
       </div>
 
@@ -257,4 +296,4 @@ const NewsLatterBox = () => {
   );
 };
 
-export default NewsLatterBox;
+export default AddPatient;

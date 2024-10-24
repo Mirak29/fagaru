@@ -8,7 +8,7 @@ import { useApp } from "../auth/MetaMaskAuth";
 import  FileUpload  from "../handlefile/handlefile"
 
 const Header = () => {
-  const { isConnected, address, error, connectToMetaMask, signMessage } = useApp();
+  const { isConnected, address, error, connectToMetaMask, signMessage, role } = useApp();
   // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarToggleHandler = () => {
@@ -167,7 +167,7 @@ const Header = () => {
                     >
                       Sign Up
                     </Link>
-                  </div>) : (<FileUpload/>)
+                  </div>) : ("")
                   }     
               <div>
                 <ThemeToggler />

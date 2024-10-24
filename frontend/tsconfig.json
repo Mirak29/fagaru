@@ -35,7 +35,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/Contact/PopularProducts.jsx"  ],
+, "src/components/Contact/PatientsFiles.jsx", "src/components/Contact/AddPatient.jsx"  ],
   "exclude": [
     "node_modules"
   ]

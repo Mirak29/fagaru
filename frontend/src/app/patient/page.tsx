@@ -11,7 +11,9 @@ export const metadata: Metadata = {
 
 const ContactPage = () => {
   return (
-    <PopularProducts />
+    <>
+      <PopularProducts />
+    </>
   );
 };
 
