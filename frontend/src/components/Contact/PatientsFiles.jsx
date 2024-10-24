@@ -207,7 +207,7 @@ const PatientsFiles = () => {
                     <tbody>
                       {files?.length != 0 ? (files?.map((file, index) => (
                         <tr key={index}>
-                          <th>{index}</th>
+                          <th>{index + 1}</th>
                           <td>
                             <a href={`https://gateway.pinata.cloud/ipfs/${file.cid}`} download>
                               {file.fileName}
