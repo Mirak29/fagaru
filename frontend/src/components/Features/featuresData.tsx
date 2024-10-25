@@ -14,7 +14,7 @@ const featuresData: Feature[] = [
     ),
     title: "Inscription des patients",
     paragraph:
-      "À la naissance, le dossier médical de chaque patient est créé de manière sécurisée à partir de son empreinte digitale et intégré au système blockchain.",
+      "L'inscription des patients est exclusivement gérée par les médecins autorisés, qui peuvent ajouter de nouveaux patients au système en utilisant leur adresse blockchain unique.",
   },
   {
     id: 1,
@@ -29,7 +29,7 @@ const featuresData: Feature[] = [
     ),
     title: "Stockage et accès aux données",
     paragraph:
-      "Les données médicales sont stockées de manière décentralisée et sécurisée, accessibles uniquement aux professionnels et établissements de santé autorisés via la blockchain.",
+      "Les dossiers médicaux sont stockés de manière décentralisée avec des identifiants uniques (CID). Chaque dossier contient les informations du patient et l'historique médical complet.",
   },
   {
     id: 1,
@@ -44,7 +44,7 @@ const featuresData: Feature[] = [
     ),
     title: "Mises à jour en temps réel",
     paragraph:
-      "Chaque interaction avec un prestataire de soins de santé met automatiquement à jour le dossier du patient, garantissant ainsi des informations précises et à jour.",
+      "Toute nouvelle information médicale est immédiatement enregistrée dans la blockchain, permettant un accès instantané aux données mises à jour pour les utilisateurs autorisés.",
   },
 
   {
@@ -60,7 +60,7 @@ const featuresData: Feature[] = [
     ),
     title: "Accès aux patients et aux médecins",
     paragraph:
-      "Les patients et les médecins peuvent accéder aux antécédents médicaux à tout moment et depuis n’importe quel endroit, garantissant ainsi la continuité des soins et réduisant les délais.",
+      "FAGARU implémente un double niveau d'accès pour protéger les informations médicales. Les médecins disposent d'un accès privilégié pour créer et consulter les dossiers de leurs patients, tandis que les patients peuvent uniquement consulter leurs propres informations médicales. Ce système assure une gestion transparente des données tout en maintenant la confidentialité nécessaire.",
   },
   {
     id: 1,
@@ -75,7 +75,7 @@ const featuresData: Feature[] = [
     ),
     title: "Sécurité de la blockchain",
     paragraph:
-      "La blockchain garantit la transparence, la sécurité et l’immuabilité des dossiers médicaux, protégeant ainsi les données contre la perte ou la falsification.",
+      "La technologie blockchain de FAGARU garantit une sécurité optimale des données médicales. Chaque action est enregistrée de façon permanente et immuable, avec une authentification sécurisée des utilisateurs via des adresses uniques. Le système assure une traçabilité complète des accès, permettant de suivre qui a consulté ou modifié les informations et quand.",
   }
 ];
 export default featuresData;

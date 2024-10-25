@@ -9,7 +9,7 @@ const Features = () => {
         <div className="container">
           <SectionTitle
             title="Comment ça marche"
-            paragraph="Fagaru crée en toute sécurité un dossier médical pour chaque patient à la naissance, en utilisant son empreinte digitale intégrée dans un système blockchain décentralisé."
+            paragraph="Les médecins s'inscrivent directement et peuvent ajouter des patients au système. Ils créent et gèrent les dossiers médicaux qui contiennent un identifiant unique, le nom du fichier et la date de création. Les médecins accèdent aux dossiers de leurs patients, tandis que les patients consultent uniquement leurs propres dossiers. Toutes les actions sont enregistrées de façon permanente sur la blockchain pour garantir la sécurité et la traçabilité."
             center
           />
 

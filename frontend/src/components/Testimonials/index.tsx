@@ -9,7 +9,7 @@ const testimonialData: Testimonial[] = [
     designation: "Fondateur @Dévellopeur fullstack",
     content:
       "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
-    image: "/images/testimonials/auth-01.png",
+    image: "/images/testimonials/mirak.jpeg",
     star: 5,
   },
   {
@@ -18,7 +18,7 @@ const testimonialData: Testimonial[] = [
     designation: "Fondateur @Dévellopeur fullstack",
     content:
       "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
-    image: "/images/testimonials/auth-02.png",
+    image: "/images/testimonials/Bass.jpeg",
     star: 5,
   },
   {
@@ -36,7 +36,7 @@ const testimonialData: Testimonial[] = [
     designation: "Fondateur @Lineicons",
     content:
       "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
-    image: "/images/testimonials/auth-03.png",
+    image: "/images/testimonials/Iso.jpeg",
     star: 5,
   },
   {
