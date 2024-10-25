@@ -13,6 +13,7 @@ import Video from "@/components/Video";
 // import { useAuth } from "../context/AuthContext"
 import { useApp } from "@/components/auth/MetaMaskAuth";
 
+
 export default function Home() {
   const { isConnected, address, error, connectToMetaMask, signMessage, role } = useApp();
 

@@ -240,14 +240,14 @@ function App({tosearch}) {
       {account  ? (
         <>
           <input type="file"
-            className='file-input file-input-bordered w-full max-w-xs'
+            className='file-input bg-white dark:bg-dark file-input-bordered w-full max-w-xs'
             onChange={handleFileChange} multiple
             ref={fileInputRef}
           />
           {loading ? (
             <p>Envoi en cours...</p>
           ) : (
-            <button className='btn btn-xl ml-4' onClick={handleSubmit}>Upload</button>
+            <button className='btn bg-white dark:bg-dark btn-xl ml-4' onClick={handleSubmit}>Upload</button>
           )}
         </>
       ) : (

@@ -35,7 +35,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/Contact/PatientsFiles.jsx", "src/components/Contact/AddPatient.jsx"  ],
+, "src/components/Contact/PatientsFiles.jsx", "src/components/Contact/AddPatient.jsx", "src/components/Header/index.jsx", "src/components/auth/MetaMaskAuth.jsx"  ],
   "exclude": [
     "node_modules"
   ]

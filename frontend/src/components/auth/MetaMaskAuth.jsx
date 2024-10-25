@@ -10,8 +10,9 @@ export function AppProvider({ children }) {
   const [account, setAccount] = useState('');
   const [role, setRole] = useState('');
 
+ 
 
-  useEffect(() => {
+  useEffect(() => {    
     const connectToMetaMask = async () => {
       if (window.ethereum) {
         try {

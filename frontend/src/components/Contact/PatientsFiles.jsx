@@ -8,10 +8,12 @@ import  FileUpload  from "../handlefile/handlefile"
 
 
 const PatientsFiles = () => {
+  
   const { isConnected, signer, error, acc, signMessage } = useApp();
   if (!isConnected) {
     return;
   }
+
   const [files, setFiles] = useState([]); // Prise en charge de plusieurs fichiers
   const [contract, setContract] = useState(null);
   const [web3, setWeb3] = useState(null);
@@ -169,7 +171,7 @@ const PatientsFiles = () => {
                     Search patient's files
                   </h2>
 
-                  <label className="input h-20 input-bordered flex items-center gap-2">
+                  <label className="input h-20 bg-white dark:bg-dark input-bordered flex items-center gap-2">
                     <input type="text" onChange={handleFileChange} className="h-12 p-4 grow" placeholder="key : (0x1234567890abcdef1234567890abcdef12345678)" />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +211,7 @@ const PatientsFiles = () => {
                         <tr key={index}>
                           <th>{index + 1}</th>
                           <td>
-                            <a href={`https://gateway.pinata.cloud/ipfs/${file.cid}`} download>
+                            <a href={`https://gateway.pinata.cloud/ipfs/${file.cid}`} target="blank" download>
                               {file.fileName}
                             </a>
                           </td>
