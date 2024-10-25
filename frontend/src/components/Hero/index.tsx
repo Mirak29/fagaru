@@ -15,13 +15,13 @@ const Hero = () => {
                 data-wow-delay=".2s"
               >
                 <h1 className="mb-5 text-6xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
-                Welcome to Fagaru
+                Bienvenue dans Fagaru
                 </h1>
-                <p className=" text-3xl font-semibold !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
-                Solution de Suivi Médical Décentralisé
+                <p className=" text-5xl font-semibold !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
+                Système de Gestion des Dossiers Médicaux sur Blockchain
                 </p>
                 <p className="  text-xl  !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
-                Fagaru centralise les données de santé grâce à une base de données décentralisée sécurisée par la blockchain. Chaque individu dispose d’un dossier médical complet dès la naissance.
+                FAGARU est une plateforme décentralisée de gestion des dossiers médicaux qui permet aux médecins et aux patients de gérer de manière sécurisée les informations médicales via la technologie blockchain. Le système garantit la confidentialité des données tout en facilitant le partage d'informations entre les professionnels de santé autorisés.
                 </p>
                 
               </div>

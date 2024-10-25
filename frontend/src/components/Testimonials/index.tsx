@@ -5,8 +5,8 @@ import SingleTestimonial from "./SingleTestimonial";
 const testimonialData: Testimonial[] = [
   {
     id: 1,
-    name: "Musharof Chy",
-    designation: "Founder @TailGrids",
+    name: "Abdou Karim Sow",
+    designation: "Fondateur @Dévellopeur fullstack",
     content:
       "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
     image: "/images/testimonials/auth-01.png",
@@ -14,8 +14,8 @@ const testimonialData: Testimonial[] = [
   },
   {
     id: 2,
-    name: "Devid Weilium",
-    designation: "Founder @UIdeck",
+    name: "Louis Sebastian Malack",
+    designation: "Fondateur @Dévellopeur fullstack",
     content:
       "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
     image: "/images/testimonials/auth-02.png",
@@ -23,11 +23,29 @@ const testimonialData: Testimonial[] = [
   },
   {
     id: 3,
-    name: "Lethium Frenci",
-    designation: "Founder @Lineicons",
+    name: "Moussa Ali Mchangama",
+    designation: "Fondateur @Dévellopeur frontend",
+    content:
+      "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
+    image: "/images/testimonials/Moussa.jpeg",
+    star: 5,
+  },
+  {
+    id: 4,
+    name: "Ismaïla Diallo",
+    designation: "Fondateur @Lineicons",
     content:
       "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
     image: "/images/testimonials/auth-03.png",
+    star: 5,
+  },
+  {
+    id: 5,
+    name: "Magatte Hinata",
+    designation: "Fondateur @Lineicons",
+    content:
+      "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
+    image: "/images/testimonials/hina.jpeg",
     star: 5,
   },
 ];
@@ -37,7 +55,7 @@ const Testimonials = () => {
     <section className="dark:bg-bg-color-dark bg-gray-light relative z-10 py-16 md:py-20 lg:py-28">
       <div className="container">
         <SectionTitle
-          title="What Our Users Says"
+          title="La team"
           paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
           center
         />

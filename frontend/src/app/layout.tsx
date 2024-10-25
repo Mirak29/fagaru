@@ -23,7 +23,7 @@ export default function RootLayout({
           <AppProvider>
             <Header />
             {children}
-            <Footer />
+            {/* <Footer /> */}
             <ScrollToTop />
           </AppProvider>
         </Providers>
