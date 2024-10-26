@@ -29,9 +29,6 @@ const PatientsFiles = () => {
   const contractABI = fagaruContract.abi;
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADRESS;
 
-  console.log("yyyyyyyyyy", contractAddress);
-
-
   const checkRole = async (acc) => {
     if (!contract || !acc) {
       console.log("En attente de l'initialisation...");
@@ -43,13 +40,35 @@ const PatientsFiles = () => {
       settosearch(acc)
       setAccountid(acc)
       fetchRecords();
-    }
+    } 
     setRole(role)
   };
 
-  useEffect(() => {
+  const patientsExists = async (account) => {
+    if (!account && role == "doctor") {
+      console.log("En attente de l'initialisation...");
+      return;
+    }
+    try {
+      // Vérifications de base
+      if (!contract || !contract?.methods || !account) {
+        throw new Error("Contract ou account non initialisé");
+      }
 
-  }, [error])
+      // Appel à getRecords avec gestion du gas
+      const records = await contract?.methods
+        .getPatientExists(account)
+        .call({
+          from: accountid,
+        });
+
+      console.log("✅ Records récupérés:", records);
+      return records
+
+    } catch (error) {
+      console.error("❌ Erreur lors de la récupération des records:")
+    }
+  }
 
   useEffect(() => {
     const initWeb3 = async () => {
@@ -89,17 +108,17 @@ const PatientsFiles = () => {
     };
 
     initWeb3();
-    checkRole(accountid)
-
+    checkRole(accountid);
     // Cleanup function to remove event listener
     return () => {
       if (window.ethereum && window.ethereum.removeListener) {
         window.ethereum.removeListener('accountsChanged', () => {
           console.log('Listener removed');
+         
         });
       }
     };
-  }, [tosearch, contractABI, accountid, files]);  // Dependency array includes contractABI
+  }, [contractABI, accountid, files]);  // Dependency array includes contractABI
 
 
   const getRecordsWithRetry = async (account) => {
@@ -120,15 +139,8 @@ const PatientsFiles = () => {
           from: accountid,
         });
 
-      // Appel à getRecords avec gestion du gas
-      const isExists = await contract?.methods
-        .getPatientExists(account)
-        .call({
-          from: accountid,
-        });
-
       console.log("✅ Records récupérés:", records);
-      return [records, isExists];
+      return records
 
     } catch (error) {
       console.error("❌ Erreur lors de la récupération des records:", {
@@ -140,13 +152,15 @@ const PatientsFiles = () => {
   };
 
   const fetchRecords = async () => {
-    if (!isConnected) {
+    if (!isConnected && role == "doctor" ) {
       console.log("En attente de l'initialisation...");
       return;
     }
 
     try {
-      const [records, isExists] = await getRecordsWithRetry(tosearch);
+      const records = await getRecordsWithRetry(tosearch);      
+
+      console.log("-----", records );
 
       // Traitement des records si nécessaire
       const processedRecords = records?.map(record => ({
@@ -154,7 +168,18 @@ const PatientsFiles = () => {
         // Ajoutez ici des transformations si nécessaire
       }));
 
-      setFiles(processedRecords);
+      setFiles(processedRecords);      
+
+    } catch (err) {
+      console.error("Erreur détaillée:", err);   
+      setFiles('')   
+    }
+
+    try {
+
+      const isExists = await patientsExists(accountid);
+
+
       if (isExists) {
         settosearch(tosearch);
         setError("");
@@ -164,11 +189,8 @@ const PatientsFiles = () => {
         setError("Key invalid or not exists");
         setSearchsuccess(false)
       }
-
     } catch (err) {
-      console.error("Erreur détaillée:", err);
       setError("Key invalid or not exists");
-      settosearch("")
       setFiles('')
     }
   };
@@ -223,14 +245,14 @@ const PatientsFiles = () => {
                   {!error.length > 0 && result.length > 0 ? <FileUpload tosearch={tosearch} /> : ""}
                 </div>
               )
-                : (console.log("role", role))
+                : ""
               }
               <div className="w-full px-4">
                 {
                   (files?.length != 0 ?
                     <h1 className="mb-4 text-2xl font-bold leading-tight text-black dark:text-white">Patient's files</h1>
-                    : "")
-                }
+                     : "")
+                } 
                 <div className="overflow-x-auto">
 
                   <table className="table">
@@ -242,7 +264,7 @@ const PatientsFiles = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {files?.length != 0 && tosearch.length > 0 ? (files?.map((file, index) => (
+                      {files?.length != 0 ? (files?.map((file, index) => (
                         <tr key={index}>
                           <th>{index + 1}</th>
                           <td>
