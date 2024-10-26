@@ -6,45 +6,45 @@ const testimonialData: Testimonial[] = [
   {
     id: 1,
     name: "Abdou Karim Sow",
-    designation: "Fondateur @Dévellopeur fullstack",
+    designation: "Fondateur @Dévellopeur Fullstack",
     content:
-      "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
+      "En tant que développeur fullstack, j'ai pris en charge la partie backend de ce projet, avec une immersion profonde dans le monde de la blockchain. Bien que n'ayant aucune expérience préalable en blockchain, j'ai rapidement appris et intégré les principes fondamentaux de cette technologie.",
     image: "/images/testimonials/mirak.jpeg",
     star: 5,
   },
   {
     id: 2,
     name: "Louis Sebastian Malack",
-    designation: "Fondateur @Dévellopeur fullstack",
+    designation: "Fondateur @Dévellopeur Fullstack",
     content:
-      "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
+      "Ce projet a été une aventure passionnante, me permettant d’explorer des intégrations blockchain et d’adapter mon savoir-faire pour créer une interface utilisateur intuitive et connectée avec des wallets et des données IPFS. J'ai enrichi mes compétences techniques en relevant des défis uniques.",
     image: "/images/testimonials/Bass.jpeg",
     star: 5,
   },
   {
     id: 3,
     name: "Moussa Ali Mchangama",
-    designation: "Fondateur @Dévellopeur frontend",
+    designation: "Fondateur @Dévellopeur Frontend",
     content:
-      "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
+      "Une expérience enrichissante où j’ai pu épauler efficacement le développeur sur des éléments visuels et des intégrations techniques. Travailler sur ce projet innovant m’a permis de mieux comprendre les interactions entre la blockchain et les applications web, renforçant ainsi mes compétences et ma vision du développement.",
     image: "/images/testimonials/Moussa.jpeg",
     star: 5,
   },
   {
     id: 4,
     name: "Ismaïla Diallo",
-    designation: "Fondateur @Lineicons",
+    designation: "Fondateur @Directeur Marketing",
     content:
-      "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
+      "Gérer le marketing d'un projet blockchain a été enrichissant : comprendre cette technologie et adapter notre message a permis de valoriser les avantages de la décentralisation pour la gestion sécurisée des données médicales. Le besoin est réel surtout pour un pays comme le Sénégal.",
     image: "/images/testimonials/Iso.jpeg",
     star: 5,
   },
   {
     id: 5,
     name: "Magatte Hinata",
-    designation: "Fondateur @Lineicons",
+    designation: "Fondateur @Chargé de la Communication",
     content:
-      "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
+      "Assurer la communication de ce projet a été un défi. Simplifier des concepts complexes pour le rendre accessible a renforcé mes compétences en vulgarisation et m’a permis de mieux transmettre l'importance de la transparence et de la sécurité des données.",
     image: "/images/testimonials/hina.jpeg",
     star: 5,
   },

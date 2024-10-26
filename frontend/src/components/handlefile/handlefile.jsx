@@ -257,7 +257,7 @@ function App({ tosearch }) {
           {loading ? (
             <p>Envoi en cours...</p>
           ) : (
-            <button className='btn bg-white dark:bg-dark btn-xl ml-4' onClick={handleSubmit}>Upload file for patient</button>
+            <button className='btn bg-white dark:bg-dark btn-xl ml-4' onClick={handleSubmit}>Sauvegarder</button>
           )}
         </>
       ) : (
