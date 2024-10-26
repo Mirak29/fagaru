@@ -64,7 +64,7 @@ const Header = () => {
                 <h1
                   className=" w-full font-large text-dark hover:opacity-70 dark:text-white  dark:block"
                 >
-                  Fagaru
+                  <img src="/images/logo.png" alt="" width={110}/>
                   </h1>                
               </Link>
             </div>
