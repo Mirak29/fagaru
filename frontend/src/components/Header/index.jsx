@@ -57,15 +57,8 @@ const Header = () => {
             <div className="w-60 max-w-full px-4 xl:mr-12">
               <Link
                 href="/"
-                className={`header-logo font-bold text-3xl block w-full ${
-                  sticky ? "py-5 lg:py-2" : "py-8"
-                } `}
               >
-                <h1
-                  className=" w-full font-large text-dark hover:opacity-70 dark:text-white  dark:block"
-                >
-                  <img src="/images/logo.png" alt="" width={110}/>
-                  </h1>                
+                <img src="/images/logo.png" alt="" width={80} />                
               </Link>
             </div>
             <div className="flex ">
