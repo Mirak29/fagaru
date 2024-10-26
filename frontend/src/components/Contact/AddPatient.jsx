@@ -36,7 +36,7 @@ const AddPatient = ({contract, account, role}) => {
       console.log("------", patientid);
       console.log(e);
       
-      setError("Key invalid or exists");
+      setError("Key invalid or already exists");
       console.dir('Erreur lors de l\'ajout du patient :', e);
     }
   };

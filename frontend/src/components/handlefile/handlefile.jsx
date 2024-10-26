@@ -3,7 +3,7 @@ import Web3 from 'web3';
 import axios from 'axios';
 import fagaruContract from "../../contracts/FAGARU.json";
 
-function App({tosearch}) {
+function App({ tosearch }) {
   const [account, setAccount] = useState('');
   const [files, setFiles] = useState([]); // Prise en charge de plusieurs fichiers
   const [cidList, setCidList] = useState([]);
@@ -135,12 +135,12 @@ function App({tosearch}) {
               contractABI,
               contractAddress
             );
-          
+
             setWeb3(web3Instance);
             setContract(contractInstance);
             setAccount(userAccount);
             setIsInitialized(true);
-            
+
             // Listen for account changes
             window.ethereum.on('accountsChanged', (newAccounts) => {
               if (newAccounts.length > 0) {
@@ -194,6 +194,16 @@ function App({tosearch}) {
         const fileData = new FormData();
         fileData.append("file", file);
 
+        // Obtenir la date et l'heure actuelles
+        const dateNow = new Date().toISOString();
+
+        fileData.append("pinataMetadata", JSON.stringify({
+          name: "file fichier",
+          keyvalues: {
+            uploadedAt: dateNow, // Ajouter la date et l'heure d'upload
+          }
+        }));
+
         const responseData = await axios({
           method: "post",
           url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
@@ -237,7 +247,7 @@ function App({tosearch}) {
 
   return (
     <div>
-      {account  ? (
+      {account ? (
         <>
           <input type="file"
             className='file-input bg-white dark:bg-dark file-input-bordered w-full max-w-xs'
@@ -247,7 +257,7 @@ function App({tosearch}) {
           {loading ? (
             <p>Envoi en cours...</p>
           ) : (
-            <button className='btn bg-white dark:bg-dark btn-xl ml-4' onClick={handleSubmit}>Upload</button>
+            <button className='btn bg-white dark:bg-dark btn-xl ml-4' onClick={handleSubmit}>Upload file for patient</button>
           )}
         </>
       ) : (

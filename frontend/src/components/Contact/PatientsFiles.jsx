@@ -4,12 +4,13 @@ import { useApp } from "../auth/MetaMaskAuth";
 import fagaruContract from "../../contracts/FAGARU.json";
 import Web3 from 'web3';
 import AddPatient from "./AddPatient";
-import  FileUpload  from "../handlefile/handlefile"
+import FileUpload from "../handlefile/handlefile"
+import { strict } from "assert";
 
 
 const PatientsFiles = () => {
-  
-  const { isConnected, signer, error, acc, signMessage } = useApp();
+
+  const { isConnected, signer, acc, signMessage } = useApp();
   if (!isConnected) {
     return;
   }
@@ -20,14 +21,16 @@ const PatientsFiles = () => {
   const [tosearch, settosearch] = useState("");
   const [accountid, setAccountid] = useState('');
   const [role, setRole] = useState("")
-  const [result, setResult] = useState(false);
+  const [result, setResult] = useState("");
+  const [error, setError] = useState("");
+  const [searchsuccess, setSearchsuccess] = useState(false);
 
 
   const contractABI = fagaruContract.abi;
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADRESS;
 
   console.log("yyyyyyyyyy", contractAddress);
-  
+
 
   const checkRole = async (acc) => {
     if (!contract || !acc) {
@@ -43,6 +46,10 @@ const PatientsFiles = () => {
     }
     setRole(role)
   };
+
+  useEffect(() => {
+
+  }, [error])
 
   useEffect(() => {
     const initWeb3 = async () => {
@@ -92,7 +99,7 @@ const PatientsFiles = () => {
         });
       }
     };
-  }, [contractABI, accountid, files, result]);  // Dependency array includes contractABI
+  }, [tosearch, contractABI, accountid, files]);  // Dependency array includes contractABI
 
 
   const getRecordsWithRetry = async (account) => {
@@ -113,8 +120,15 @@ const PatientsFiles = () => {
           from: accountid,
         });
 
+      // Appel à getRecords avec gestion du gas
+      const isExists = await contract?.methods
+        .getPatientExists(account)
+        .call({
+          from: accountid,
+        });
+
       console.log("✅ Records récupérés:", records);
-      return records;
+      return [records, isExists];
 
     } catch (error) {
       console.error("❌ Erreur lors de la récupération des records:", {
@@ -132,7 +146,7 @@ const PatientsFiles = () => {
     }
 
     try {
-      const records = await getRecordsWithRetry(tosearch);
+      const [records, isExists] = await getRecordsWithRetry(tosearch);
 
       // Traitement des records si nécessaire
       const processedRecords = records?.map(record => ({
@@ -141,11 +155,20 @@ const PatientsFiles = () => {
       }));
 
       setFiles(processedRecords);
-      setResult(true);
-      settosearch(tosearch);
+      if (isExists) {
+        settosearch(tosearch);
+        setError("");
+        setSearchsuccess(true)
+        setResult(tosearch);
+      } else {
+        setError("Key invalid or not exists");
+        setSearchsuccess(false)
+      }
 
     } catch (err) {
       console.error("Erreur détaillée:", err);
+      setError("Key invalid or not exists");
+      settosearch("")
       setFiles('')
     }
   };
@@ -153,6 +176,14 @@ const PatientsFiles = () => {
   const handleFileChange = (e) => {
     console.log(e.target.value)
     settosearch(e.target.value)
+
+  }
+
+  const formatDate = (s) => {
+    const timestamp = Number(s.timeAdded); // Convertir BigInt en Number si nécessaire
+    const dateAdded = new Date(timestamp * 1000)
+
+    return dateAdded.toLocaleString();
   }
 
   return (
@@ -168,11 +199,11 @@ const PatientsFiles = () => {
               "
                 >
                   <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
-                    Search patient's files
+                    Select patient
                   </h2>
 
                   <label className="input h-20 bg-white dark:bg-dark input-bordered flex items-center gap-2">
-                    <input type="text" onChange={handleFileChange} className="h-12 p-4 grow" placeholder="key : (0x1234567890abcdef1234567890abcdef12345678)" />
+                    <input type="text" onChange={handleFileChange} className="h-12 p-4 grow" placeholder="0x1234567890abcdef1234567890abcdef12345678" />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 16 16"
@@ -185,35 +216,42 @@ const PatientsFiles = () => {
                     </svg>
                     <button onClick={fetchRecords}>Search</button>
                   </label>
-                  <br/>
+                  <br />
+                  {<p className="text-red-500">{error}</p>}
+                  <br />
 
-                  {result ? <FileUpload tosearch={tosearch}/> : ""}
+                  {!error.length > 0 && result.length > 0 ? <FileUpload tosearch={tosearch} /> : ""}
                 </div>
-                )
-                : (console.log("oshhohi", role))
+              )
+                : (console.log("role", role))
               }
-              <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
+              <div className="w-full px-4">
                 {
                   (files?.length != 0 ?
-                    <h1 className="mb-4 text-2xl font-bold leading-tight text-black dark:text-white">Files</h1>
+                    <h1 className="mb-4 text-2xl font-bold leading-tight text-black dark:text-white">Patient's files</h1>
                     : "")
                 }
                 <div className="overflow-x-auto">
+
                   <table className="table">
                     <thead>
                       <tr>
                         <th></th>
                         <th>Name</th>
+                        <th>time</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {files?.length != 0 ? (files?.map((file, index) => (
+                      {files?.length != 0 && tosearch.length > 0 ? (files?.map((file, index) => (
                         <tr key={index}>
                           <th>{index + 1}</th>
                           <td>
                             <a href={`https://gateway.pinata.cloud/ipfs/${file.cid}`} target="blank" download>
                               {file.fileName}
                             </a>
+                          </td>
+                          <td>
+                            {formatDate(file)}
                           </td>
                         </tr>
                       ))) : "No file"}
@@ -222,12 +260,12 @@ const PatientsFiles = () => {
                 </div>
               </div>
             </div>
-          
+
             {
               role == "doctor" ? (
-              <div className="w-full px-4 lg:w-5/12 xl:w-4/12">
-              <AddPatient contract={contract} role={role} account={accountid} />
-            </div>) : ("")
+                <div className="w-full px-4 lg:w-5/12 xl:w-4/12">
+                  <AddPatient contract={contract} role={role} account={accountid} />
+                </div>) : ("")
             }
           </div>
         </div>
