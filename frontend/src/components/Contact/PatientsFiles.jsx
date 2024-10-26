@@ -161,13 +161,13 @@ const PatientsFiles = () => {
         setSearchsuccess(true)
         setResult(tosearch);
       } else {
-        setError("Key invalid or not exists");
+        setError("Clé invalide ou existante");
         setSearchsuccess(false)
       }
 
     } catch (err) {
       console.error("Erreur détaillée:", err);
-      setError("Key invalid or not exists");
+      setError("Clé invalide ou existante");
       settosearch("")
       setFiles('')
     }
