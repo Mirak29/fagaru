@@ -199,7 +199,7 @@ const PatientsFiles = () => {
               "
                 >
                   <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
-                    Select patient
+                    Selectionner patient
                   </h2>
 
                   <label className="input h-20 bg-white dark:bg-dark input-bordered flex items-center gap-2">
@@ -214,7 +214,7 @@ const PatientsFiles = () => {
                         d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
                         clipRule="evenodd" />
                     </svg>
-                    <button onClick={fetchRecords}>Search</button>
+                    <button onClick={fetchRecords}>Rechercher</button>
                   </label>
                   <br />
                   {<p className="text-red-500">{error}</p>}
@@ -228,7 +228,7 @@ const PatientsFiles = () => {
               <div className="w-full px-4">
                 {
                   (files?.length != 0 ?
-                    <h1 className="mb-4 text-2xl font-bold leading-tight text-black dark:text-white">Patient's files</h1>
+                    <h1 className="mb-4 text-2xl font-bold leading-tight text-black dark:text-white">Dossiers Patient</h1>
                     : "")
                 }
                 <div className="overflow-x-auto">
@@ -237,8 +237,8 @@ const PatientsFiles = () => {
                     <thead>
                       <tr>
                         <th></th>
-                        <th>Name</th>
-                        <th>time</th>
+                        <th>Nom</th>
+                        <th>Date d'ajout</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -254,7 +254,7 @@ const PatientsFiles = () => {
                             {formatDate(file)}
                           </td>
                         </tr>
-                      ))) : "No file"}
+                      ))) : "Aucun fichier"}
                     </tbody>
                   </table>
                 </div>
