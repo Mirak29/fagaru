@@ -35,7 +35,7 @@ Fagaru est composé de trois composants principaux :
 3. **IPFS** pour le stockage distribué des fichiers
 
 <p align="center">
-<img src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/187/785/datas/original.png" width="700"/>
+<img src="architecure.png" width="700"/>
 </p>
 
 Le client se connecte au portefeuille crypto et utilise un contrat intelligent pour enregistrer un utilisateur en tant que patient ou médecin, si son adresse publique n'est pas déjà enregistrée.
