@@ -46,7 +46,7 @@ export const ConnectComponent = () => {
                     href="/patient"
                     className="ease-in-up shadow-btn hover:shadow-btn-hover rounded-sm bg-blue-950	 px-8 py-5 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
                   >
-                    Espace Personel
+                    Dossiers
                   </Link>)
             }
         </>
