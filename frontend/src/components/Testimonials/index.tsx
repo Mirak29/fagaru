@@ -41,7 +41,7 @@ const testimonialData: Testimonial[] = [
   },
   {
     id: 5,
-    name: "Magatte Hinata",
+    name: "Magatte Dione",
     designation: "Fondateur @Chargé de la Communication",
     content:
       "Assurer la communication de ce projet a été un défi. Simplifier des concepts complexes pour le rendre accessible a renforcé mes compétences en vulgarisation et m’a permis de mieux transmettre l'importance de la transparence et de la sécurité des données.",
