@@ -57,7 +57,7 @@ const PatientsFiles = () => {
 
       // Appel à getRecords avec gestion du gas
       const records = await contract?.methods
-        .getPatientExists(account)
+        .getPatientExists(tosearch)
         .call({
           from: accountid,
         });
